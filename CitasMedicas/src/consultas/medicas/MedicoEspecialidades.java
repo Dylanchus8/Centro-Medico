@@ -5,46 +5,31 @@
  */
 package consultas.medicas;
 
-import static centromedico.MedicoInsert.getConection;
+
+import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Andres
  */
 public class MedicoEspecialidades extends javax.swing.JFrame {
-    private static Connection con;
-    private static final String driver="com.mysql.jdbc.Driver";
-    private static final String user="root";
-    private static final String pass="199223";
-    private static final String url="jdbc:mysql://localhost:3306/citasmedicas";
-
-    
-    
-    //constantes de
+    Conexion cc=new Conexion();
+    Connection con=cc.getConnection();
+        
     PreparedStatement ps;
     ResultSet rs;
     
         // Funcion que va conectarse a mi bd de mysql
-    public static Connection getConection() {
-        Connection con = null;
-        
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(url,user,pass);
-            JOptionPane.showMessageDialog(null, "Conexion pepa");
-        } catch(Exception e){
-            System.out.println(e);
-        }
-        return con;
-        
-    }
+    
     
      private void limpiarCajas(){
         
@@ -56,9 +41,10 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
     public MedicoEspecialidades() {
         initComponents();
         
+        
         PreparedStatement ps=null;
         ResultSet rs=null;
-        con = getConection();
+        
         try{
             String sql = "SELECT * FROM medico";
             ps=con.prepareStatement(sql);
@@ -106,12 +92,13 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
         cboxEsp = new javax.swing.JComboBox();
         btnVerMedEsp = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablamedespecialidad = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Medicos Especialidades ");
 
         btnAnaMedEsp.setText("Añadir");
@@ -134,18 +121,18 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablamedespecialidad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablamedespecialidad);
 
         jLabel2.setText("Cedula");
 
@@ -155,50 +142,49 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(cboxMedID, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(cboxEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(jLabel1))
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(277, 277, 277)
-                        .addComponent(btnAnaMedEsp)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerMedEsp)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel2)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cboxMedID, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboxEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(96, 96, 96)
+                .addComponent(btnAnaMedEsp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerMedEsp)
+                .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(cboxMedID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboxEsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnaMedEsp)
                     .addComponent(btnVerMedEsp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,12 +192,12 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
 
     private void btnAnaMedEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnaMedEspActionPerformed
         
-        Connection con = null;
+        Conexion cc=new Conexion();
+        Connection con=cc.getConnection();
         
         try{
             
-            con = getConection();
-            ps = con.prepareStatement("INSERT INTO medicoespecialidad(Medico_ID_MEDICO, MedicoEspecialidad_ID_MEDESPE) VALUES(?,?)");
+            ps = con.prepareStatement("INSERT INTO medicoespecialidad(Medico_ID_MEDICO, Medico_Especialidad_ID_MEDESPE) VALUES(?,?)");
             ps.setString(1, cboxMedID.getSelectedItem().toString());
             ps.setString(2, cboxEsp.getSelectedItem().toString());
            
@@ -235,9 +221,9 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnAnaMedEspActionPerformed
-
+    
     private void btnVerMedEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMedEspActionPerformed
-       
+        mostarDatos();
         
     }//GEN-LAST:event_btnVerMedEspActionPerformed
 
@@ -280,7 +266,33 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private void mostarDatos() {
+        String [] titulos={"Cedula","NombreMedico"};
+        String [] registros=new String [2];
+        
+        DefaultTableModel modelo= new DefaultTableModel(null, titulos);
+        
+        String SQL="select* from medicoespecialidad";
+        
+        try {
+            
+           Statement st=con.createStatement();
+           ResultSet rsu=st.executeQuery(SQL);
+           
+            while (rsu.next()) {
+                
+                registros [0]= rsu.getString("Medico_ID_MEDICO");
+                registros [1]= rsu.getString("Medico_Especialidad_ID_MEDESPE");
+                
+            modelo.addRow(registros);
+            }
+           tablamedespecialidad.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al Mostar la especialidad de los medicos" + e.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnaMedEsp;
     private javax.swing.JButton btnVerMedEsp;
@@ -290,6 +302,8 @@ public class MedicoEspecialidades extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablamedespecialidad;
     // End of variables declaration//GEN-END:variables
+
+    
 }

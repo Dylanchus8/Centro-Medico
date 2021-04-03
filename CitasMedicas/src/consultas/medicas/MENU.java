@@ -88,6 +88,11 @@ public class MENU extends javax.swing.JFrame {
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/phonebook_notebook_14401.png"))); // NOI18N
         jMenu5.setText("Citas");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu5);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/forceexit_103817 (1).png"))); // NOI18N
@@ -142,6 +147,12 @@ public class MENU extends javax.swing.JFrame {
         admi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        Cita  ci = new Cita ();
+        ci.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments

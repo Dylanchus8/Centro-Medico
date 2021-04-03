@@ -39,19 +39,21 @@ public class GestionMedico extends javax.swing.JFrame {
     
     public GestionMedico() {
         initComponents();
-        Conexion cc=new Conexion();
-        Connection con=cc.getConnection();
+        this.setLocationRelativeTo(null);
+        
         PreparedStatement ps=null;
         ResultSet rs=null;
         
+        Conexion cc=new Conexion();
+        Connection con=cc.getConnection();
         try{
-            String sql = "SELECT * FROM medico";
+            String sql = "SELECT * FROM especialidad";
             ps=con.prepareStatement(sql);
             rs=ps.executeQuery();
             
             while(rs.next())
             {
-                cboxEspecia.addItem(rs.getString("MED_NOMBRE"));
+                cboxEspecia.addItem(rs.getString("ID_MEDESPE"));
             }
             rs.close();
         } catch(SQLException ex)
@@ -161,7 +163,7 @@ public class GestionMedico extends javax.swing.JFrame {
 
         jLabel10.setText("Genero:");
 
-        cboxGenMed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona", "Maculino", "Femenino", "Otro" }));
+        cboxGenMed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona", "Masculino", "Femenino", "Otro" }));
 
         jLabel11.setText("Fecha Nacimiento:");
 
@@ -215,7 +217,7 @@ public class GestionMedico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboxEspecia, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboxEspecia, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -276,7 +278,7 @@ public class GestionMedico extends javax.swing.JFrame {
                     .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboxEspecia, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxEspecia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
